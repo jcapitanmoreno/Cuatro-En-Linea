@@ -4,6 +4,11 @@ import Utils.InputUtil;
 
 import java.util.Scanner;
 
+/**
+ * Método principal que controla el flujo del juego de Cuatro en Línea.
+ * Este método contiene el bucle principal que permite a los jugadores realizar
+ * movimientos alternados hasta que se alcance un resultado (ganador o empate).
+ */
 public class CuatroEnLinea {
     public void controlador() {
         Scanner scanner = new Scanner(System.in);

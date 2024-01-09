@@ -3,9 +3,15 @@ package Utils;
 import java.util.Scanner;
 
 public class InputUtil {
+
+    /**
+     * Solicita al usuario que elija una columna para colocar una ficha en el tablero.
+     *
+     * @param scanner Scanner para la entrada de simbolos (X - O).
+     * @return La columna seleccionada por el usuario (índice 1-7).
+     */
     public static Scanner scanner = new Scanner(System.in);
 
-    // Solicitar al jugador que elija una columna
     public static int solicitarColumna(Scanner scanner) {
         int columna;
         while (true) {
