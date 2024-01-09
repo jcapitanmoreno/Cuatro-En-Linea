@@ -5,7 +5,7 @@ import Utils.InputUtil;
 import java.util.Scanner;
 
 public class CuatroEnLinea {
-    public static void main(String[] args) {
+    public void controlador() {
         Scanner scanner = new Scanner(System.in);
 
         // Tamaño del tablero
@@ -22,8 +22,11 @@ public class CuatroEnLinea {
         // Jugador actual
         Jugador jugadorActual = jugadorX;
 
+        // Variable para controlar la salida del bucle
+        boolean juegoTerminado = false;
+
         // Bucle principal del juego
-        while (true) {
+        while (!juegoTerminado) {
             // Mostrar el tablero
             tablero.mostrar();
 
@@ -33,27 +36,27 @@ public class CuatroEnLinea {
             // Colocar la ficha en la columna seleccionada
             if (!tablero.colocarFicha(jugadorActual, columna)) {
                 System.out.println("Columna llena. Elige otra.");
-                continue;
+            } else {
+                // Verificar si hay un ganador
+                if (tablero.hayGanador(jugadorActual)) {
+                    tablero.mostrar();
+                    System.out.println("¡Jugador " + jugadorActual.getSimbolo() + " gana!");
+                    juegoTerminado = true;
+                } else {
+                    // Verificar empate
+                    if (tablero.estaLleno()) {
+                        tablero.mostrar();
+                        System.out.println("Empate. El tablero está lleno.");
+                        juegoTerminado = true;
+                    } else {
+                        // Cambiar al siguiente jugador
+                        jugadorActual = (jugadorActual == jugadorX) ? jugadorO : jugadorX;
+                    }
+                }
             }
-
-            // Verificar si hay un ganador
-            if (tablero.hayGanador(jugadorActual)) {
-                tablero.mostrar();
-                System.out.println("¡Jugador " + jugadorActual.getSimbolo() + " gana!");
-                break;
-            }
-
-            // Verificar empate
-            if (tablero.estaLleno()) {
-                tablero.mostrar();
-                System.out.println("Empate. El tablero está lleno.");
-                break;
-            }
-
-            // Cambiar al siguiente jugador
-            jugadorActual = (jugadorActual == jugadorX) ? jugadorO : jugadorX;
         }
 
         scanner.close();
     }
 }
+

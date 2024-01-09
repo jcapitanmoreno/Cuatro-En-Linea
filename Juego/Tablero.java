@@ -40,6 +40,16 @@ public class Tablero {
 
     // Verificar si hay un ganador
     public boolean hayGanador(Jugador jugador) {
+        boolean ganadorHorizontal = verificarGanadorHorizontal(jugador);
+        boolean ganadorDiagonalDerecha = verificarGanadorDiagonalDerecha(jugador);
+        boolean ganadorDiagonalIzquierda = verificarGanadorDiagonalIzquierda(jugador);
+
+        // Devuelve true si al menos una dirección es ganadora
+        return ganadorHorizontal ||  ganadorDiagonalDerecha || ganadorDiagonalIzquierda;
+    }
+
+
+    private boolean verificarGanadorHorizontal(Jugador jugador) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if (j + 3 < matriz[i].length &&
@@ -55,11 +65,13 @@ public class Tablero {
                                 matriz[i + 1][j] == jugador.getSimbolo() &&
                                 matriz[i + 2][j] == jugador.getSimbolo() &&
                                 matriz[i + 3][j] == jugador.getSimbolo())) {
-                    return true; // Ganador vertical
+
                 }
             }
         }
-
+        return true; // Ganador vertical
+    }
+    private boolean verificarGanadorDiagonalDerecha(Jugador jugador) {
         // Verificar diagonalmente (de izquierda a derecha)
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -68,11 +80,13 @@ public class Tablero {
                                 matriz[i + 1][j + 1] == jugador.getSimbolo() &&
                                 matriz[i + 2][j + 2] == jugador.getSimbolo() &&
                                 matriz[i + 3][j + 3] == jugador.getSimbolo())) {
-                    return true; // Ganador diagonal
+
                 }
             }
         }
-
+        return true; // Ganador diagonal
+    }
+    private boolean verificarGanadorDiagonalIzquierda(Jugador jugador) {
         // Verificar diagonalmente (de derecha a izquierda)
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -81,24 +95,27 @@ public class Tablero {
                                 matriz[i + 1][j - 1] == jugador.getSimbolo() &&
                                 matriz[i + 2][j - 2] == jugador.getSimbolo() &&
                                 matriz[i + 3][j - 3] == jugador.getSimbolo())) {
-                    return true; // Ganador diagonal
                 }
             }
         }
 
         return false; // No hay ganador
-
     }
+
+
 
     // Verificar si el tablero está lleno (empate)
     public boolean estaLleno() {
+        int espaciosEnBlanco = 0;
+
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if (matriz[i][j] == ' ') {
-                    return false; // Todavía hay espacio en blanco
+                    espaciosEnBlanco++;
                 }
             }
         }
-        return true; // Tablero lleno
+        // Devuelve true si no hay espacios en blanco (tablero lleno), false de lo contrario
+        return espaciosEnBlanco == 0;
     }
-}
+    }
